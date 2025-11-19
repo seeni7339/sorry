@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorry Vishnu</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP Animation Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #0d0d0d;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Gradient Animated Background */
+    .bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ff5f6d, #ffc371, #845ec2, #ff6f91, #f9f871);
+      background-size: 500% 500%;
+      animation: bgAnimation 12s ease infinite;
+      z-index: -3;
+    }
+
+    @keyframes bgAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glass Box */
+    .glass-box {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 40px 60px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 30px rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.25);
+      opacity: 0;
+    }
+
+    /* Heading */
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    /* Message */
+    p {
+      font-size: 1.2rem;
+      color: #eee;
+      font-weight: 300;
+    }
+
+    /* Floating Particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.8);
+      pointer-events: none;
+      filter: blur(1px);
+    }
+
+    /* Floating Hearts (Advanced SVG Shapes) */
+    .floating-heart {
+      position: absolute;
+      width: 30px;
+      animation: heartFloat 6s infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes heartFloat {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-800px) scale(1.3); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+
+  <div class="glass-box" id="box">
+    <h1 id="title">Sorry Vishnu</h1>
+    <p id="message">I know I hurt you… but you mean the world to me. Please forgive me. 💖</p>
+  </div>
+
+  <!-- Floating hearts and particles generated via JS -->
+  <script>
+    // GSAP fade-in animation
+    gsap.to("#box", { opacity: 1, duration: 2, ease: "power2.out" });
+    gsap.from("#title", { y: -40, opacity: 0, duration: 1.5, delay: 0.3 });
+    gsap.from("#message", { y: 40, opacity: 0, duration: 1.5, delay: 0.6 });
+
+    // Heart generator
+    function createHeart() {
+      const heart = document.createElement("img");
+      heart.src = "https://cdn-icons-png.flaticon.com/512/833/833472.png";
+      heart.classList.add("floating-heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.bottom = "-50px";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 300);
+
+    // Particle generator
+    function createParticle() {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      let size = Math.random() * 5 + 2;
+      particle.style.width = size + "px";
+      particle.style.height = size + "px";
+      particle.style.left = Math.random() * window.innerWidth + "px";
+      particle.style.top = Math.random() * window.innerHeight + "px";
+      particle.style.opacity = Math.random();
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 4000);
+    }
+
+    setInterval(createParticle, 150);
+  </script>
+</body>
+</html>
